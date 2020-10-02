@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import img from '../../assets/background.jpeg';
 
 export const Container = styled.div`
   width: 100%;
@@ -8,6 +9,8 @@ export const Container = styled.div`
   background-color: #c6c6c6;
   align-items: center;
   padding: 20px;
+  background-image: url(${img});
+  background-size: cover;
 `;
 
 export const Table = styled.table`
@@ -22,6 +25,10 @@ export const Table = styled.table`
 
   thead {
     background: #909090;
+  }
+
+  tbody tr {
+    background: #c6c6c6;
   }
 
   th,
