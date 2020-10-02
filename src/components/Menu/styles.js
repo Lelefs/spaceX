@@ -19,15 +19,32 @@ export const Container = styled.nav`
     a {
       padding: 0;
       border-bottom: 1px solid transparent;
-
-      &:hover {
-        font-weight: bold;
-      }
+      position: relative;
 
       &.ativo {
         font-weight: bold;
         border-bottom: 1px solid #fff;
       }
+    }
+
+    .hvr-underline-from-left:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+        -webkit-transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .hvr-underline-from-left:hover:after {
+      transition-duration: 0.4s;
+      transform: scaleX(1);
+      transform-origin: left center;
     }
   }
 `;

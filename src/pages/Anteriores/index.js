@@ -39,7 +39,7 @@ export default function Proximo() {
                 <td>{lancamento.mission_name}</td>
                 <td>{lancamento.rocket.rocket_name}</td>
                 <td>
-                  {format(new Date(lancamento.launch_date_local), 'dd/MM/yyyy')}
+                  {format(new Date(lancamento.launch_date_utc), 'dd/MM/yyyy')}
                 </td>
               </tr>
             ))}

@@ -10,7 +10,7 @@ const lancamento = {
   flight_number: '',
   mission_name: '',
   rocket: { rocket_name: '' },
-  launch_date_local: '',
+  launch_date_utc: '',
 };
 
 export default function Proximo() {
@@ -21,15 +21,15 @@ export default function Proximo() {
   useEffect(() => {
     async function carregarLancamento() {
       const proximo = await api.get('/next');
-      proximo.data.launch_date_local = format(
-        new Date(proximo.data.launch_date_local),
+      proximo.data.launch_date_utc = format(
+        new Date(proximo.data.launch_date_utc),
         'dd/MM/yyyy',
       );
       setProximoLancamento(proximo.data);
 
       const anterior = await api.get('/latest');
-      anterior.data.launch_date_local = format(
-        new Date(anterior.data.launch_date_local),
+      anterior.data.launch_date_utc = format(
+        new Date(anterior.data.launch_date_utc),
         'dd/MM/yyyy',
       );
       setUltimoLancamento(anterior.data);
@@ -57,7 +57,7 @@ export default function Proximo() {
               <td>{proximoLancamento.flight_number}</td>
               <td>{proximoLancamento.mission_name}</td>
               <td>{proximoLancamento.rocket.rocket_name}</td>
-              <td>{proximoLancamento.launch_date_local}</td>
+              <td>{proximoLancamento.launch_date_utc}</td>
             </tr>
           </tbody>
         </Table>
@@ -77,7 +77,7 @@ export default function Proximo() {
               <td>{ultimoLancamento.flight_number}</td>
               <td>{ultimoLancamento.mission_name}</td>
               <td>{ultimoLancamento.rocket.rocket_name}</td>
-              <td>{ultimoLancamento.launch_date_local}</td>
+              <td>{ultimoLancamento.launch_date_utc}</td>
             </tr>
           </tbody>
         </Table>

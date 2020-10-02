@@ -7,17 +7,22 @@ export default function Menu({ local }) {
   return (
     <Container>
       <nav>
-        <Link className={local === 'recentes' ? 'ativo' : undefined} to="/">
+        <Link
+          className={local === 'recentes' ? 'ativo' : 'hvr-underline-from-left'}
+          to="/"
+        >
           Recentes
         </Link>
         <Link
-          className={local === 'proximos' ? 'ativo' : undefined}
+          className={local === 'proximos' ? 'ativo' : 'hvr-underline-from-left'}
           to="/proximos"
         >
           Próximos
         </Link>
         <Link
-          className={local === 'anteriores' ? 'ativo' : undefined}
+          className={
+            local === 'anteriores' ? 'ativo' : 'hvr-underline-from-left'
+          }
           to="/anteriores"
         >
           Anteriores

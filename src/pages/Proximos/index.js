@@ -12,10 +12,6 @@ export default function Proximo() {
   useEffect(() => {
     async function carregarLancamentos() {
       const proximos = await api.get('/upcoming');
-      /* proximos.data.launch_date_local = format(
-        new Date(proximos.data.launch_date_local),
-        'dd/MM/yyyy',
-      ); */
       setLancamentos(proximos.data);
     }
 
@@ -43,7 +39,7 @@ export default function Proximo() {
                 <td>{lancamento.mission_name}</td>
                 <td>{lancamento.rocket.rocket_name}</td>
                 <td>
-                  {format(new Date(lancamento.launch_date_local), 'dd/MM/yyyy')}
+                  {format(new Date(lancamento.launch_date_utc), 'dd/MM/yyyy')}
                 </td>
               </tr>
             ))}
