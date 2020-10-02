@@ -12,31 +12,3 @@ export const Container = styled.div`
   background-image: url(${img});
   background-size: cover;
 `;
-
-export const Table = styled.table`
-  margin-bottom: 40px;
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  border-collapse: separate;
-  border-radius: 5px;
-  border-spacing: 0;
-  border: 1px solid #000;
-
-  thead {
-    background: #909090;
-  }
-
-  tbody tr {
-    background: #c6c6c6;
-  }
-
-  th,
-  td {
-    padding: 10px;
-  }
-
-  td {
-    border-top: 1px solid #000;
-  }
-`;
