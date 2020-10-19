@@ -4,7 +4,7 @@ import api from '../../services/api';
 
 import Menu from '../../components/Menu';
 import Tabela from '../../components/Tabela';
-import Loader from '../../components/Loader';
+import TabelaLoading from '../../components/TabelaLoading';
 
 import { Container } from './styles';
 
@@ -25,20 +25,27 @@ export default function Proximo() {
   useEffect(() => {
     async function carregarLancamento() {
       setCarregando(true);
-      const proximo = await api.get('/next');
-      proximo.data.launch_date_utc = format(
-        new Date(proximo.data.launch_date_utc),
-        'dd/MM/yyyy',
-      );
-      setProximoLancamento(proximo.data);
+      try {
+        const proximo = await api.get('/next');
+        proximo.data.launch_date_utc = format(
+          new Date(proximo.data.launch_date_utc),
+          'dd/MM/yyyy',
+        );
+        setProximoLancamento(proximo.data);
 
-      const anterior = await api.get('/latest');
-      anterior.data.launch_date_utc = format(
-        new Date(anterior.data.launch_date_utc),
-        'dd/MM/yyyy',
-      );
-      setUltimoLancamento(anterior.data);
-      setCarregando(false);
+        const anterior = await api.get('/latest');
+        anterior.data.launch_date_utc = format(
+          new Date(anterior.data.launch_date_utc),
+          'dd/MM/yyyy',
+        );
+        setUltimoLancamento(anterior.data);
+        setCarregando(false);
+      } catch (err) {
+        alert('Não conseguimos encontrar os dados de lançamento');
+        setProximoLancamento('');
+        setUltimoLancamento('');
+        setCarregando(false);
+      }
     }
 
     carregarLancamento();
@@ -47,26 +54,33 @@ export default function Proximo() {
   return (
     <>
       <Menu local="recentes" />
-      {carregando && <Loader />}
       <Container>
         <h1>Próximo lançamento</h1>
         <Tabela>
-          <tr>
-            <td>{proximoLancamento.flight_number}</td>
-            <td>{proximoLancamento.mission_name}</td>
-            <td>{proximoLancamento.rocket.rocket_name}</td>
-            <td>{proximoLancamento.launch_date_utc}</td>
-          </tr>
+          {carregando ? (
+            <TabelaLoading />
+          ) : (
+            <tr>
+              <td>{proximoLancamento.flight_number}</td>
+              <td>{proximoLancamento.mission_name}</td>
+              <td>{proximoLancamento.rocket.rocket_name}</td>
+              <td>{proximoLancamento.launch_date_utc}</td>
+            </tr>
+          )}
         </Tabela>
 
         <h1>Último lançamento</h1>
         <Tabela>
-          <tr>
-            <td>{ultimoLancamento.flight_number}</td>
-            <td>{ultimoLancamento.mission_name}</td>
-            <td>{ultimoLancamento.rocket.rocket_name}</td>
-            <td>{ultimoLancamento.launch_date_utc}</td>
-          </tr>
+          {carregando ? (
+            <TabelaLoading />
+          ) : (
+            <tr>
+              <td>{ultimoLancamento.flight_number}</td>
+              <td>{ultimoLancamento.mission_name}</td>
+              <td>{ultimoLancamento.rocket.rocket_name}</td>
+              <td>{ultimoLancamento.launch_date_utc}</td>
+            </tr>
+          )}
         </Tabela>
       </Container>
     </>

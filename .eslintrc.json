@@ -36,6 +36,7 @@
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "off",
     "import/no-cycle": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-alert": 0
   }
 }
