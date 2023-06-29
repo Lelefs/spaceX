@@ -10,9 +10,8 @@ import { Container } from './styles';
 
 const lancamento = {
   flight_number: '',
-  mission_name: '',
-  rocket: { rocket_name: '' },
-  launch_date_utc: '',
+  name: '',
+  date_utc: '',
 };
 
 export default function Proximo() {
@@ -27,17 +26,19 @@ export default function Proximo() {
       setCarregando(true);
       try {
         const proximo = await api.get('/next');
-        proximo.data.launch_date_utc = format(
-          new Date(proximo.data.launch_date_utc),
+        proximo.data.date_utc = format(
+          new Date(proximo.data.date_utc),
           'dd/MM/yyyy',
         );
+
         setProximoLancamento(proximo.data);
 
         const anterior = await api.get('/latest');
-        anterior.data.launch_date_utc = format(
-          new Date(anterior.data.launch_date_utc),
+        anterior.data.date_utc = format(
+          new Date(anterior.data.date_utc),
           'dd/MM/yyyy',
         );
+
         setUltimoLancamento(anterior.data);
         setCarregando(false);
       } catch (err) {
@@ -62,9 +63,8 @@ export default function Proximo() {
           ) : (
             <tr>
               <td>{proximoLancamento.flight_number}</td>
-              <td>{proximoLancamento.mission_name}</td>
-              <td>{proximoLancamento.rocket.rocket_name}</td>
-              <td>{proximoLancamento.launch_date_utc}</td>
+              <td>{proximoLancamento.name}</td>
+              <td>{proximoLancamento.date_utc}</td>
             </tr>
           )}
         </Tabela>
@@ -76,9 +76,8 @@ export default function Proximo() {
           ) : (
             <tr>
               <td>{ultimoLancamento.flight_number}</td>
-              <td>{ultimoLancamento.mission_name}</td>
-              <td>{ultimoLancamento.rocket.rocket_name}</td>
-              <td>{ultimoLancamento.launch_date_utc}</td>
+              <td>{ultimoLancamento.name}</td>
+              <td>{ultimoLancamento.date_utc}</td>
             </tr>
           )}
         </Tabela>

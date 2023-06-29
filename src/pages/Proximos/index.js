@@ -18,6 +18,11 @@ export default function Proximo() {
       setCarregando(true);
       try {
         const proximos = await api.get('/upcoming');
+        proximos.data
+          .sort(function (a, b) {
+            return b.date_utc - a.date_utc;
+          })
+          .reverse();
         setLancamentos(proximos.data);
         setCarregando(false);
       } catch (err) {
@@ -40,13 +45,10 @@ export default function Proximo() {
             <TabelaLoading />
           ) : (
             lancamentos.map(lancamento => (
-              <tr key={lancamento.mission_name}>
+              <tr key={lancamento.id}>
                 <td>{lancamento.flight_number}</td>
-                <td>{lancamento.mission_name}</td>
-                <td>{lancamento.rocket.rocket_name}</td>
-                <td>
-                  {format(new Date(lancamento.launch_date_utc), 'dd/MM/yyyy')}
-                </td>
+                <td>{lancamento.name}</td>
+                <td>{format(new Date(lancamento.date_utc), 'dd/MM/yyyy')}</td>
               </tr>
             ))
           )}

@@ -21,11 +21,6 @@ export default function TabelaLoading() {
           <div />
         </Shimmer>
       </td>
-      <td>
-        <Shimmer>
-          <div />
-        </Shimmer>
-      </td>
     </Container>
   );
 }
